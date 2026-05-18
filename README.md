@@ -39,7 +39,7 @@ game adapted entirely for touch input on Android. No keyboard needed.
 
 ## Download
 
-Download the APK from the [Releases](../../releases) page.
+Download the APK from the [Releases](https://github.com/srikanth9x/ping-pong/releases/latest) page.
 
 ## Credits
 
