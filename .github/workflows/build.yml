@@ -17,6 +17,9 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
           df -h
+          
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Checkout
         uses: actions/checkout@v4
