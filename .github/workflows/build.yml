@@ -25,11 +25,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y zip
-
           zip -9 -r game.love . \
             --exclude "*.git*" \
             --exclude "*.github*" \
             --exclude "screenshots/*" \
+            --exclude "res/*" \
             --exclude "README.md" \
             --exclude "LICENSE"
 
@@ -40,6 +40,8 @@ jobs:
           bundle-id: "com.srikanth9x.pingpong"
           love-ref: "11.5"
           love-package: "./game.love"
+          resource-path: "./res"
+          icon-specifier: "@mipmap/app"
           product-name: "ping-pong"
           version-string: "1.0.0"
           version-code: 1
