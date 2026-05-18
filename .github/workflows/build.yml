@@ -1,0 +1,49 @@
+name: Build Ping Pong APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build love package
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
+
+          zip -9 -r game.love . \
+            --exclude "*.git*" \
+            --exclude "*.github*" \
+            --exclude "screenshots/*" \
+            --exclude "README.md" \
+            --exclude "LICENSE"
+
+      - name: Build Android APK
+        uses: love-actions/love-actions-android@v2
+        with:
+          app-name: "Ping Pong"
+          bundle-id: "com.srikanth9x.pingpong"
+          love-ref: "11.5"
+          love-package: "./game.love"
+          product-name: "ping-pong"
+          version-string: "1.0.0"
+          version-code: 1
+          output-folder: "./output"
+
+          keystore-alias: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          keystore-key-password: ${{ secrets.ANDROID_KEYSTORE_KEYPASSWORD }}
+          keystore-store-password: ${{ secrets.ANDROID_KEYSTORE_STOREPASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ping-pong-apk
+          path: ./output/*.apk
